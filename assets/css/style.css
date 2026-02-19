@@ -1,75 +1,102 @@
+/* GERAL */
 body {
   margin:0;
-  font-family: Arial, sans-serif;
-  background:#111;
-  color:white;
+  font-family: 'Poppins', sans-serif;
+  background:#fdfcfb;
+  color:#1d1d1d;
 }
 
-header {
-  background:black;
+/* HEADER */
+.header {
   display:flex;
   justify-content:space-between;
-  padding:20px;
+  padding:20px 40px;
+  background:#000;
+  color:white;
+}
+.header nav a {
+  margin-left:20px;
+  text-decoration:none;
+  color:white;
+  font-weight:600;
 }
 
+/* HERO */
 .hero {
   text-align:center;
-  padding:40px;
-  background:linear-gradient(45deg,#ff6a00,#ff0000);
+  padding:100px 20px;
+  background:linear-gradient(135deg, #ff8a00, #c70039);
+  color:white;
+}
+.btn-principal {
+  background:white;
+  padding:15px 30px;
+  color:#c70039;
+  font-weight:800;
+  border-radius:40px;
+  text-decoration:none;
 }
 
+/* PRODUTOS */
 .produtos {
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-  padding:20px;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:25px;
+  padding:40px;
 }
 
 .card {
-  background:#1c1c1c;
-  padding:20px;
-  border-radius:10px;
+  background:white;
+  border-radius:15px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.12);
   text-align:center;
-}
-
-.card button {
-  background:#ff6a00;
-  border:none;
-  padding:10px;
-  color:white;
-  cursor:pointer;
-  border-radius:5px;
-}
-
-.cart {
-  position:fixed;
-  right:-350px;
-  top:0;
-  width:300px;
-  height:100%;
-  background:#222;
   padding:20px;
   transition:0.3s;
-  overflow:auto;
+}
+.card:hover {
+  transform:scale(1.04);
+}
+.card button {
+  background:#c70039;
+  color:white;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+  cursor:pointer;
 }
 
+/* CARRINHO */
+.cart {
+  position:fixed;
+  right:-380px;
+  top:0;
+  width:340px;
+  height:100%;
+  background:#fff;
+  border-left:6px solid #c70039;
+  padding:20px;
+  box-shadow:-5px 0 30px rgba(0,0,0,0.2);
+  transition:0.4s ease;
+  z-index:1000;
+}
 .cart.open {
   right:0;
 }
-
-.cart-top {
+.cart-header {
   display:flex;
   justify-content:space-between;
+  margin-bottom:15px;
 }
 
+/* WHATSAPP */
 .whatsapp {
   position:fixed;
   bottom:20px;
   right:20px;
-  background:green;
+  background:#25D366;
+  color:white;
   padding:15px;
   border-radius:50%;
   text-decoration:none;
-  color:white;
-  font-size:20px;
+  font-size:24px;
 }
