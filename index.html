@@ -4,21 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anjos 4 Patas</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:#f5f5f5;}
 
-/* TOPO PROMO */
+/* TOPO */
 .topbar{
 background:#ff7a18;
 color:#fff;
 text-align:center;
 padding:8px;
 font-size:14px;
-font-weight:500;
 }
 
 /* HEADER */
@@ -26,30 +24,31 @@ header{
 background:#fff;
 padding:15px 30px;
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 box-shadow:0 2px 10px rgba(0,0,0,0.05);
-position:sticky;
-top:0;
-z-index:100;
 }
 
 .logo{
 color:#ff7a18;
-font-weight:900;
-font-size:20px;
+font-weight:800;
 }
 
-.search{
-flex:1;
-margin:0 20px;
+.cart-icon{
+cursor:pointer;
+position:relative;
+font-size:22px;
 }
 
-.search input{
-width:100%;
-padding:10px 15px;
-border-radius:20px;
-border:1px solid #ddd;
+.cart-icon span{
+position:absolute;
+top:-8px;
+right:-10px;
+background:#ff424f;
+color:#fff;
+font-size:12px;
+padding:3px 6px;
+border-radius:50%;
 }
 
 /* PRODUTOS */
@@ -65,26 +64,11 @@ background:#fff;
 border-radius:6px;
 box-shadow:0 3px 10px rgba(0,0,0,0.05);
 overflow:hidden;
-transition:.2s;
-position:relative;
-}
-
-.card:hover{transform:translateY(-3px);}
-
-.badge{
-position:absolute;
-top:10px;
-left:10px;
-background:#ff424f;
-color:#fff;
-font-size:12px;
-padding:4px 8px;
-border-radius:4px;
 }
 
 .card img{
 width:100%;
-height:180px;
+height:170px;
 object-fit:cover;
 }
 
@@ -95,13 +79,6 @@ padding:10px;
 .price{
 color:#ff424f;
 font-weight:700;
-font-size:18px;
-}
-
-.old-price{
-text-decoration:line-through;
-color:#999;
-font-size:13px;
 }
 
 .buy{
@@ -111,99 +88,47 @@ background:#ff7a18;
 color:#fff;
 border:none;
 padding:8px;
-border-radius:4px;
 cursor:pointer;
-font-weight:600;
 }
 
-/* CARRINHO */
-.cart-icon{
-position:relative;
-cursor:pointer;
-font-size:20px;
-}
-
-.cart-icon span{
-position:absolute;
-top:-8px;
-right:-10px;
-background:#ff424f;
-color:#fff;
-font-size:12px;
-padding:3px 6px;
-border-radius:50%;
-}
-
-.overlay{
+/* MODAL CADASTRO */
+.modal{
 position:fixed;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.4);
-top:0;
-left:0;
-display:none;
-z-index:200;
+background:rgba(0,0,0,0.6);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:1000;
 }
 
-.cart{
-position:fixed;
-top:0;
-right:-380px;
-width:350px;
-height:100%;
+.modal-box{
 background:#fff;
-box-shadow:-10px 0 30px rgba(0,0,0,0.2);
-transition:.3s;
-display:flex;
-flex-direction:column;
-z-index:300;
+padding:30px;
+border-radius:10px;
+width:300px;
 }
 
-.cart.open{right:0;}
-
-.cart-header{
-padding:15px;
-border-bottom:1px solid #eee;
-font-weight:700;
-display:flex;
-justify-content:space-between;
-}
-
-.cart-items{
-flex:1;
-overflow-y:auto;
-padding:15px;
-}
-
-.cart-item{
-display:flex;
-justify-content:space-between;
+.modal-box h2{
 margin-bottom:15px;
-font-size:14px;
 }
 
-.qty button{
+.modal-box input{
+width:100%;
+margin-bottom:10px;
+padding:8px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+.modal-box button{
+width:100%;
+padding:10px;
 background:#ff7a18;
 color:#fff;
 border:none;
-width:22px;
-height:22px;
-cursor:pointer;
-}
-
-.cart-footer{
-padding:15px;
-border-top:1px solid #eee;
-}
-
-.checkout{
-width:100%;
-background:#ff424f;
-color:#fff;
-padding:12px;
-border:none;
-border-radius:4px;
-font-weight:700;
+font-weight:600;
 cursor:pointer;
 }
 
@@ -212,125 +137,85 @@ cursor:pointer;
 <body>
 
 <div class="topbar">
-🔥 Ofertas Relâmpago | Frete Grátis acima de R$99
+🔥 Ofertas Exclusivas para Clientes Cadastrados
 </div>
 
 <header>
 <div class="logo">🐾 Anjos 4 Patas</div>
-
-<div class="search">
-<input type="text" placeholder="Buscar produtos...">
-</div>
-
-<div class="cart-icon" onclick="abrirCarrinho()">
-🛒
-<span id="contador">0</span>
+<div class="cart-icon">
+🛒 <span id="contador">0</span>
 </div>
 </header>
 
 <section class="produtos" id="produtos"></section>
 
-<div class="overlay" id="overlay" onclick="fecharCarrinho()"></div>
-
-<div class="cart" id="cart">
-<div class="cart-header">
-Meu Carrinho
-<button onclick="fecharCarrinho()">X</button>
-</div>
-
-<div class="cart-items" id="cartItems"></div>
-
-<div class="cart-footer">
-<h3>Total: R$ <span id="total">0.00</span></h3>
-<button class="checkout" onclick="checkout()">Comprar Agora</button>
+<!-- MODAL CADASTRO -->
+<div class="modal" id="cadastroModal">
+<div class="modal-box">
+<h2>Cadastro Obrigatório</h2>
+<input type="text" id="nome" placeholder="Nome Completo">
+<input type="tel" id="telefone" placeholder="Telefone (somente números)">
+<button onclick="cadastrar()">Cadastrar</button>
 </div>
 </div>
 
 <script>
 
+let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+let usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual"));
+
 const produtos=[
-{id:1,nome:"Caminha Premium",preco:129.90,old:169.90,img:"https://images.unsplash.com/photo-1601758228041-f3b2795255f1"},
-{id:2,nome:"Coleira Luxo",preco:59.90,old:89.90,img:"https://images.unsplash.com/photo-1598137269418-1c1f0f6c3c9e"},
-{id:3,nome:"Brinquedo Interativo",preco:39.90,old:59.90,img:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"}
+{id:1,nome:"Caminha Premium",preco:129.90,img:"https://images.unsplash.com/photo-1601758228041-f3b2795255f1"},
+{id:2,nome:"Coleira Luxo",preco:59.90,img:"https://images.unsplash.com/photo-1598137269418-1c1f0f6c3c9e"},
+{id:3,nome:"Brinquedo Interativo",preco:39.90,img:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"}
 ];
 
-let carrinho=[];
+if(usuarioAtual){
+document.getElementById("cadastroModal").style.display="none";
+}
+
+function cadastrar(){
+let nome=document.getElementById("nome").value.trim();
+let telefone=document.getElementById("telefone").value.trim();
+
+if(nome.length<5){
+alert("Digite nome completo válido");
+return;
+}
+
+if(telefone.length<8){
+alert("Telefone inválido");
+return;
+}
+
+if(usuarios.find(u=>u.telefone===telefone)){
+alert("Este número já está cadastrado!");
+return;
+}
+
+let novoUsuario={nome,telefone};
+usuarios.push(novoUsuario);
+
+localStorage.setItem("usuarios",JSON.stringify(usuarios));
+localStorage.setItem("usuarioAtual",JSON.stringify(novoUsuario));
+
+document.getElementById("cadastroModal").style.display="none";
+}
 
 const produtosDiv=document.getElementById("produtos");
 
 produtos.forEach(p=>{
 produtosDiv.innerHTML+=`
 <div class="card">
-<div class="badge">- ${Math.round((1 - p.preco/p.old)*100)}%</div>
 <img src="${p.img}">
 <div class="card-content">
 <p>${p.nome}</p>
 <div class="price">R$ ${p.preco.toFixed(2)}</div>
-<div class="old-price">R$ ${p.old.toFixed(2)}</div>
-<button class="buy" onclick="add(${p.id})">Comprar</button>
+<button class="buy">Comprar</button>
 </div>
 </div>
 `;
 });
-
-function add(id){
-let item=carrinho.find(p=>p.id===id);
-if(item){item.qtd++}
-else{
-let prod=produtos.find(p=>p.id===id);
-carrinho.push({...prod,qtd:1});
-}
-render();
-}
-
-function render(){
-let total=0;
-let html="";
-carrinho.forEach((item,i)=>{
-total+=item.preco*item.qtd;
-html+=`
-<div class="cart-item">
-<div>
-${item.nome}<br>
-R$ ${(item.preco*item.qtd).toFixed(2)}
-</div>
-<div class="qty">
-<button onclick="menos(${i})">-</button>
-${item.qtd}
-<button onclick="mais(${i})">+</button>
-</div>
-</div>
-`;
-});
-document.getElementById("cartItems").innerHTML=html;
-document.getElementById("total").innerText=total.toFixed(2);
-document.getElementById("contador").innerText=carrinho.length;
-}
-
-function mais(i){carrinho[i].qtd++;render();}
-function menos(i){
-if(carrinho[i].qtd>1)carrinho[i].qtd--;
-else carrinho.splice(i,1);
-render();
-}
-
-function abrirCarrinho(){
-document.getElementById("cart").classList.add("open");
-document.getElementById("overlay").style.display="block";
-}
-
-function fecharCarrinho(){
-document.getElementById("cart").classList.remove("open");
-document.getElementById("overlay").style.display="none";
-}
-
-function checkout(){
-let msg="Olá quero comprar:%0A";
-carrinho.forEach(i=>{
-msg+=`${i.nome} x${i.qtd} - R$ ${(i.preco*i.qtd).toFixed(2)}%0A`;
-});
-window.open(`https://wa.me/5511912552105?text=${msg}`);
-}
 
 </script>
 
