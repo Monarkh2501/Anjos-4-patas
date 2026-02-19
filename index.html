@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anjos 4 Patas - Premium Pet</title>
-
-<link rel="stylesheet" href="assets/css/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anjos 4 Patas — Premium Pet</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header>
-  <h1>🐾 ANJOS 4 PATAS</h1>
-  <button id="openCart">🛒 Carrinho</button>
+<header class="header">
+  <div class="logo">🐾 Anjos 4 Patas</div>
+  <nav>
+    <a href="#produtos">Produtos</a>
+    <a href="#sobre">Sobre Nós</a>
+    <a href="#contato">Contato</a>
+  </nav>
 </header>
 
 <section class="hero">
-  <h2>Mais de <span id="contador">1500</span> pets felizes atendidos!</h2>
-  <p>Qualidade Premium • Entrega Rápida em SP</p>
+  <h1>Cuidado Premium para quem ama de verdade</h1>
+  <p>Mais de <span id="contador">2000</span> pets felizes confiam em nossos produtos</p>
+  <a href="#produtos" class="btn-principal">Ver Produtos</a>
 </section>
 
 <section id="produtos" class="produtos"></section>
 
-<!-- CARRINHO -->
 <div id="cart" class="cart">
-  <div class="cart-top">
+  <div class="cart-header">
     <h3>Seu Carrinho</h3>
     <button id="closeCart">X</button>
   </div>
-
   <div id="cartItems"></div>
-
-  <input type="text" id="cupom" placeholder="Cupom PRIME15">
+  <input type="text" id="cupom" placeholder="Cupom de 15% PRIME15">
   <button onclick="aplicarCupom()">Aplicar Cupom</button>
-
   <h3>Total: R$ <span id="total">0.00</span></h3>
-
+  <button onclick="mostrarPix()">Pagar com Pix</button>
   <button onclick="finalizarCompra()">Finalizar no WhatsApp</button>
 </div>
 
-<a class="whatsapp" 
-   href="https://wa.me/5511912552105" 
-   target="_blank">💬</a>
+<section id="sobre" class="sobre">
+  <h2>Sobre Anjos 4 Patas</h2>
+  <p>
+    Somos referência em produtos pet premium, com entrega rápida em São Paulo e atendimento diferenciado.
+    Selecionamos cada item com amor, qualidade e garantia de satisfação — porque cada pet merece o melhor.
+  </p>
+</section>
 
-<script src="assets/js/script.js"></script>
+<section id="contato" class="contato">
+  <h2>Fale Conosco</h2>
+  <p>📞 WhatsApp: <a href="https://wa.me/5511912552105">11 91255-2105</a></p>
+</section>
 
+<a class="whatsapp" href="https://wa.me/5511912552105" target="_blank">💬</a>
+
+<script src="js/script.js"></script>
 </body>
 </html>
