@@ -3,36 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Patinhas Prime | Loja Oficial</title>
-<link rel="stylesheet" href="css/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<title>Anjos 4 Patas - Premium Pet</title>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
 
 <header>
-🐾 Patinhas Prime
+  <h1>🐾 ANJOS 4 PATAS</h1>
+  <button id="openCart">🛒 Carrinho</button>
 </header>
+
+<section class="hero">
+  <h2>Mais de <span id="contador">1537</span> pets felizes atendidos!</h2>
+  <p>Qualidade premium direto de São Paulo</p>
+</section>
 
 <section class="produtos" id="produtos"></section>
 
-<!-- BOTÃO CARRINHO -->
-<div class="cart-toggle" onclick="toggleCarrinho()">
-🛒 <span id="cartCount">0</span>
+<div class="cart" id="cart">
+  <div class="cart-header">
+    <h3>Seu Carrinho</h3>
+    <button id="closeCart">X</button>
+  </div>
+  <div id="cartItems"></div>
+  <input type="text" id="cupom" placeholder="Cupom de desconto">
+  <button onclick="aplicarCupom()">Aplicar Cupom</button>
+  <h3>Total: R$ <span id="total">0</span></h3>
+  <button onclick="finalizarCompra()">Finalizar no WhatsApp</button>
 </div>
 
-<!-- OVERLAY -->
-<div class="overlay" onclick="toggleCarrinho()"></div>
+<a href="https://wa.me/5511912552105" class="whatsapp" target="_blank">WhatsApp</a>
 
-<!-- CARRINHO LATERAL -->
-<div class="carrinho">
-<h2>Seu Carrinho</h2>
-<ul id="lista"></ul>
-<div class="total">Total: R$ <span id="total">0.00</span></div>
-<button onclick="finalizar()">Finalizar no WhatsApp</button>
-</div>
-
-<script src="js/script.js"></script>
+<script src="assets/js/script.js"></script>
 </body>
 </html>
-
