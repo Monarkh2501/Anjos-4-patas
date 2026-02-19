@@ -3,58 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anjos 4 Patas | Premium Pet</title>
+<title>Anjos 4 Patas - Premium Pet</title>
+
 <link rel="stylesheet" href="assets/css/style.css">
+
 </head>
 <body>
 
 <header>
   <h1>🐾 ANJOS 4 PATAS</h1>
-  <div>
-    <button id="openCart">🛒</button>
-  </div>
+  <button id="openCart">🛒 Carrinho</button>
 </header>
 
 <section class="hero">
   <h2>Mais de <span id="contador">1500</span> pets felizes atendidos!</h2>
-  <p>Entrega rápida em São Paulo • Qualidade Premium</p>
+  <p>Qualidade Premium • Entrega Rápida em SP</p>
 </section>
 
-<section class="produtos" id="produtos"></section>
+<section id="produtos" class="produtos"></section>
 
-<!-- Carrinho lateral -->
-<div class="cart" id="cart">
-  <div class="cart-header">
+<!-- CARRINHO -->
+<div id="cart" class="cart">
+  <div class="cart-top">
     <h3>Seu Carrinho</h3>
     <button id="closeCart">X</button>
   </div>
+
   <div id="cartItems"></div>
 
   <input type="text" id="cupom" placeholder="Cupom PRIME15">
   <button onclick="aplicarCupom()">Aplicar Cupom</button>
 
-  <h3>Total: R$ <span id="total">0</span></h3>
+  <h3>Total: R$ <span id="total">0.00</span></h3>
 
-  <button onclick="mostrarPix()">Pagar com Pix</button>
   <button onclick="finalizarCompra()">Finalizar no WhatsApp</button>
 </div>
 
-<!-- Modal Pix -->
-<div id="pixModal" class="modal">
-  <div class="modal-content">
-    <h3>Pagamento via Pix</h3>
-    <p>Chave Pix:</p>
-    <strong>alphaolympus01@gmail.com</strong>
-    <br><br>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=alphaolympus01@gmail.com">
-    <br><br>
-    <button onclick="fecharPix()">Fechar</button>
-  </div>
-</div>
-
-<a href="https://wa.me/5511912552105" class="whatsapp" target="_blank">💬</a>
+<a class="whatsapp" 
+   href="https://wa.me/5511912552105" 
+   target="_blank">💬</a>
 
 <script src="assets/js/script.js"></script>
+
 </body>
 </html>
-
