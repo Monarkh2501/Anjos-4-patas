@@ -3,56 +3,323 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anjos 4 Patas - Premium Pet</title>
+<title>Anjos 4 Patas Premium</title>
 
-<link rel="stylesheet" href="assets/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
+<style>
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#f5f5f5;}
+
+/* HEADER */
+header{
+background:#ff7a18;
+padding:20px 40px;
+color:#fff;
+font-weight:700;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* HERO */
+.hero{
+padding:60px 20px;
+text-align:center;
+background:linear-gradient(135deg,#ff7a18,#ffb347);
+color:#fff;
+}
+
+.hero h1{
+font-size:32px;
+font-weight:900;
+margin-bottom:10px;
+}
+
+/* PRODUTOS */
+.produtos{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+padding:40px;
+}
+
+.card{
+background:#fff;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+overflow:hidden;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.card-content{
+padding:20px;
+text-align:center;
+}
+
+.card button{
+margin-top:10px;
+background:#ff7a18;
+color:#fff;
+border:none;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+}
+
+/* CARRINHO FLUTUANTE */
+.cart-icon{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#ff7a18;
+color:#fff;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+z-index:999;
+}
+
+.cart-icon span{
+position:absolute;
+top:5px;
+right:8px;
+background:#fff;
+color:#ff7a18;
+font-size:12px;
+font-weight:700;
+padding:3px 7px;
+border-radius:50%;
+}
+
+/* OVERLAY */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+z-index:998;
+}
+
+/* CARRINHO LATERAL ESTILO SHOPEE */
+.cart{
+position:fixed;
+top:0;
+right:-420px;
+width:400px;
+height:100%;
+background:#fff;
+box-shadow:-10px 0 40px rgba(0,0,0,0.2);
+transition:.4s ease;
+display:flex;
+flex-direction:column;
+z-index:999;
+}
+
+.cart.open{
+right:0;
+}
+
+.cart-header{
+padding:20px;
+font-weight:700;
+border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
+}
+
+.cart-items{
+flex:1;
+overflow-y:auto;
+padding:20px;
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.qty{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.qty button{
+background:#ff7a18;
+color:#fff;
+border:none;
+width:25px;
+height:25px;
+cursor:pointer;
+border-radius:5px;
+}
+
+.cart-footer{
+padding:20px;
+border-top:1px solid #eee;
+}
+
+.checkout{
+width:100%;
+background:#ff7a18;
+color:#fff;
+padding:15px;
+border:none;
+border-radius:10px;
+font-weight:700;
+cursor:pointer;
+margin-top:10px;
+}
+
+</style>
 </head>
 <body>
 
-<!-- BANNER SUPERIOR ESTRATÉGICO -->
-<div class="top-banner">
-🔥 FRETE GRÁTIS ACIMA DE R$99 | 15% OFF COM CUPOM PRIME15
-</div>
-
-<header class="header">
-  <div class="logo">🐾 Anjos 4 Patas</div>
-  <nav>
-    <a href="reviews.html">Avaliações</a>
-    <a href="remarketing.html">Ofertas VIP</a>
-  </nav>
+<header>
+🐾 ANJOS 4 PATAS
 </header>
 
 <section class="hero">
-  <h1>Luxo, Cuidado e Amor para seu Pet</h1>
-  <p>Mais de <span id="contador">2500</span> pets felizes atendidos</p>
+<h1>Luxo e Amor para seu Melhor Amigo</h1>
+<p>Produtos Premium Selecionados</p>
 </section>
 
-<section id="produtos" class="produtos"></section>
+<section class="produtos" id="produtos"></section>
 
-<!-- ÍCONE CARRINHO FLUTUANTE -->
-<div class="cart-icon" id="openCart">
-🛒 <span id="cartCount">0</span>
+<div class="cart-icon" onclick="abrirCarrinho()">
+🛒
+<span id="contador">0</span>
 </div>
 
-<!-- CARRINHO LATERAL -->
-<div id="cart" class="cart">
-  <div class="cart-header">
-    <h3>Seu Carrinho</h3>
-    <button id="closeCart">X</button>
-  </div>
+<div class="overlay" id="overlay" onclick="fecharCarrinho()"></div>
 
-  <div id="cartItems"></div>
-
-  <input type="text" id="cupom" placeholder="Cupom PRIME15">
-  <button onclick="aplicarCupom()">Aplicar Cupom</button>
-
-  <h3>Total: R$ <span id="total">0.00</span></h3>
-
-  <button onclick="finalizarCompra()">Finalizar no WhatsApp</button>
+<div class="cart" id="cart">
+<div class="cart-header">
+Seu Carrinho
+<button onclick="fecharCarrinho()">X</button>
 </div>
 
-<script src="assets/js/script.js"></script>
+<div class="cart-items" id="cartItems"></div>
+
+<div class="cart-footer">
+<h3>Total: R$ <span id="total">0.00</span></h3>
+<button class="checkout" onclick="checkout()">Finalizar Compra</button>
+</div>
+</div>
+
+<script>
+
+const produtos=[
+{id:1,nome:"Caminha Premium Luxo",preco:129.90,img:"https://images.unsplash.com/photo-1601758228041-f3b2795255f1"},
+{id:2,nome:"Coleira Executiva",preco:59.90,img:"https://images.unsplash.com/photo-1598137269418-1c1f0f6c3c9e"},
+{id:3,nome:"Brinquedo Interativo",preco:39.90,img:"https://images.unsplash.com/photo-1583511655857-d19b40a7a54e"}
+];
+
+let carrinho=[];
+
+const produtosDiv=document.getElementById("produtos");
+const cartItems=document.getElementById("cartItems");
+
+produtos.forEach(p=>{
+produtosDiv.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<div class="card-content">
+<h3>${p.nome}</h3>
+<p>R$ ${p.preco.toFixed(2)}</p>
+<button onclick="add(${p.id})">Adicionar</button>
+</div>
+</div>
+`;
+});
+
+function add(id){
+let item=carrinho.find(p=>p.id===id);
+if(item){item.qtd++}
+else{
+let produto=produtos.find(p=>p.id===id);
+carrinho.push({...produto,qtd:1});
+}
+render();
+}
+
+function render(){
+cartItems.innerHTML="";
+let total=0;
+
+carrinho.forEach((item,index)=>{
+total+=item.preco*item.qtd;
+
+cartItems.innerHTML+=`
+<div class="cart-item">
+<div>
+<b>${item.nome}</b>
+<p>R$ ${(item.preco*item.qtd).toFixed(2)}</p>
+</div>
+<div class="qty">
+<button onclick="menos(${index})">-</button>
+${item.qtd}
+<button onclick="mais(${index})">+</button>
+</div>
+</div>
+`;
+});
+
+document.getElementById("total").innerText=total.toFixed(2);
+document.getElementById("contador").innerText=carrinho.length;
+}
+
+function mais(i){carrinho[i].qtd++;render();}
+function menos(i){
+if(carrinho[i].qtd>1)carrinho[i].qtd--;
+else carrinho.splice(i,1);
+render();
+}
+
+function abrirCarrinho(){
+document.getElementById("cart").classList.add("open");
+document.getElementById("overlay").style.display="block";
+}
+
+function fecharCarrinho(){
+document.getElementById("cart").classList.remove("open");
+document.getElementById("overlay").style.display="none";
+}
+
+function checkout(){
+let msg="Olá quero finalizar:%0A";
+carrinho.forEach(i=>{
+msg+=`${i.nome} x${i.qtd} - R$ ${(i.preco*i.qtd).toFixed(2)}%0A`;
+});
+window.open(`https://wa.me/5511912552105?text=${msg}`);
+}
+
+</script>
+
 </body>
 </html>
