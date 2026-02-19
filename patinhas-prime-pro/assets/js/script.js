@@ -1,92 +1,82 @@
-let produtos = [
-{
-nome:"Brinquedo Anti-Ansiedade",
-preco:39.90,
-img:"https://images.unsplash.com/photo-1601758124510-52d02ddb7cbd"
-},
-{
-nome:"Cama Ultra Conforto",
-preco:129.90,
-img:"https://images.unsplash.com/photo-1583337130417-3346a1be7dee"
-},
-{
-nome:"Coleira Premium",
-preco:49.90,
-img:"https://images.unsplash.com/photo-1583511655826-05700442b31b"
-}
+const produtosLista = [
+  {id:1,nome:"Brinquedo Mordedor Premium",preco:29.90},
+  {id:2,nome:"Coleira Ajustável Luxo",preco:39.90},
+  {id:3,nome:"Caminha Confort Pet",preco:89.90}
 ];
 
 let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+let desconto = 0;
+
+const produtosDiv = document.getElementById("produtos");
+const cart = document.getElementById("cart");
+const cartItems = document.getElementById("cartItems");
+
+document.getElementById("openCart").onclick = () => cart.classList.add("open");
+document.getElementById("closeCart").onclick = () => cart.classList.remove("open");
 
 function renderProdutos(){
-let area = document.getElementById("produtos");
-area.innerHTML="";
-
-produtos.forEach((p,i)=>{
-area.innerHTML+=`
-<div class="card">
-<img src="${p.img}">
-<div class="card-content">
-<h3>${p.nome}</h3>
-<div class="preco">R$ ${p.preco.toFixed(2)}</div>
-<button onclick="addCarrinho(${i})">Adicionar</button>
-</div>
-</div>`;
-});
+  produtosDiv.innerHTML="";
+  produtosLista.forEach(p=>{
+    produtosDiv.innerHTML+=`
+      <div class="card">
+        <h3>${p.nome}</h3>
+        <p>R$ ${p.preco}</p>
+        <button onclick="addCarrinho(${p.id})">Adicionar</button>
+      </div>
+    `;
+  });
 }
 
-function addCarrinho(i){
-carrinho.push(produtos[i]);
-salvarCarrinho();
+function addCarrinho(id){
+  carrinho.push(produtosLista.find(p=>p.id===id));
+  salvarCarrinho();
+  renderCarrinho();
 }
 
-function removerItem(i){
-carrinho.splice(i,1);
-salvarCarrinho();
+function removerItem(index){
+  carrinho.splice(index,1);
+  salvarCarrinho();
+  renderCarrinho();
+}
+
+function renderCarrinho(){
+  cartItems.innerHTML="";
+  let total=0;
+  carrinho.forEach((item,i)=>{
+    total+=item.preco;
+    cartItems.innerHTML+=`
+      <p>${item.nome} - R$ ${item.preco}
+      <button onclick="removerItem(${i})">X</button></p>
+    `;
+  });
+  total = total - (total*desconto);
+  document.getElementById("total").innerText=total.toFixed(2);
 }
 
 function salvarCarrinho(){
-localStorage.setItem("carrinho",JSON.stringify(carrinho));
-atualizarCarrinho();
+  localStorage.setItem("carrinho",JSON.stringify(carrinho));
 }
 
-function atualizarCarrinho(){
-let lista=document.getElementById("lista");
-lista.innerHTML="";
-let total=0;
-
-carrinho.forEach((item,i)=>{
-total+=item.preco;
-lista.innerHTML+=`
-<li>
-${item.nome} - R$ ${item.preco.toFixed(2)}
-<button onclick="removerItem(${i})">X</button>
-</li>`;
-});
-
-document.getElementById("total").innerText=total.toFixed(2);
-document.getElementById("cartCount").innerText=carrinho.length;
+function aplicarCupom(){
+  const cupom=document.getElementById("cupom").value;
+  if(cupom==="PRIME15" && !localStorage.getItem("cupomUsado")){
+    desconto=0.15;
+    localStorage.setItem("cupomUsado",true);
+    alert("Cupom aplicado!");
+    renderCarrinho();
+  }else{
+    alert("Cupom inválido ou já usado.");
+  }
 }
 
-function toggleCarrinho(){
-document.querySelector(".carrinho").classList.toggle("active");
-document.querySelector(".overlay").classList.toggle("active");
-}
-
-function finalizar(){
-let total=0;
-let msg="Pedido:%0A";
-
-carrinho.forEach(i=>{
-total+=i.preco;
-msg+=i.nome+" R$ "+i.preco.toFixed(2)+"%0A";
-});
-
-msg+="%0ATotal: R$ "+total.toFixed(2);
-
-window.open("https://wa.me/5511912552105?text="+msg);
+function finalizarCompra(){
+  let mensagem="Olá, quero finalizar minha compra:%0A";
+  carrinho.forEach(item=>{
+    mensagem+=`${item.nome} - R$ ${item.preco}%0A`;
+  });
+  mensagem+=`Total: R$ ${document.getElementById("total").innerText}`;
+  window.open(`https://wa.me/5511912552105?text=${mensagem}`);
 }
 
 renderProdutos();
-atualizarCarrinho();
-
+renderCarrinho();
