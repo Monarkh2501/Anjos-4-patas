@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patinhas Prime | Loja Oficial</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+🐾 Patinhas Prime
+</header>
+
+<section class="produtos" id="produtos"></section>
+
+<!-- BOTÃO CARRINHO -->
+<div class="cart-toggle" onclick="toggleCarrinho()">
+🛒 <span id="cartCount">0</span>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" onclick="toggleCarrinho()"></div>
+
+<!-- CARRINHO LATERAL -->
+<div class="carrinho">
+<h2>Seu Carrinho</h2>
+<ul id="lista"></ul>
+<div class="total">Total: R$ <span id="total">0.00</span></div>
+<button onclick="finalizar()">Finalizar no WhatsApp</button>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
 
